@@ -27,6 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 添加用户 -->
 	<!-- paramterType:指定输入参数是pojo,此时＃{}中指定pojo的属性名，即这里是User的各个成员变量名字。这种方式称为OGNL方式 -->
 	<insert id="insertUser" parameterType="com.hank.pojo.User">
+		<!-- 将插入数据的主键返回，插入到user对象中 -->
+		<!-- order="AFTER"指的是，只有当下面的insert语句执行完毕后，才返回新增纪录的id值到User的id成员变量上 -->
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
 		insert
 		into
 		user(id,username,birthday,sex,address)

@@ -87,6 +87,8 @@ public class MybaticHelloworld {
 		sqlSession.insert("helloworld.insertUser", user);
 		// 提交事务
 		sqlSession.commit();
+
+		System.out.println(user.getId());
 		sqlSession.close();
 
 	}
