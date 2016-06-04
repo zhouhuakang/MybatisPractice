@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace用来对sql进行分类管理 -->
-<mapper namespace="test">
+<mapper namespace="query">
 	<!-- 在映射文件中配置很多sql语句 -->
 	<!-- 需求：通过id查询用户表的记录 -->
 	<!-- 通过select执行数据库查询 id:标识映射文件中的sql 将sql语句封装到mappedStatement对象，所以将id称为statement的id -->
