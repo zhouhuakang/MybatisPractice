@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace用来对sql进行分类管理 -->
-<mapper namespace="query">
+<mapper namespace="helloworld">
 	<!-- 在映射文件中配置很多sql语句 -->
 	<!-- 需求：通过id查询用户表的记录 -->
 	<!-- 通过select执行数据库查询 id:标识映射文件中的sql 将sql语句封装到mappedStatement对象，所以将id称为statement的id -->
@@ -18,11 +18,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 根据用户名字模糊查询用户,可能返回多条 -->
 	<!-- 但是注意resultType指的是单条记录所映射的java对象类型，故不要填什么List类型 -->
 	<!-- ${}:表示拼接sql串，隐患，会产生sql注入问题 -->
-	<!--  -->
+	<!-- -->
 	<!-- 如果传入的类型是简单类型，则${}中只能使用value -->
-	<!--  -->
+	<!-- -->
 	<select id="findUserByName" parameterType="String" resultType="com.hank.pojo.User">
 		select * from user where username like '%${value}%'
 	</select>
+	<!-- 添加用户 -->
+	<!-- paramterType:指定输入参数是pojo,此时＃{}中指定pojo的属性名，即这里是User的各个成员变量名字。这种方式称为OGNL方式 -->
+	<insert id="insertUser" parameterType="com.hank.pojo.User">
+		insert
+		into
+		user(id,username,birthday,sex,address)
+		value(#{id},#{username},#{birthday},#{sex},#{address})
+	</insert>
+
 
 </mapper>
