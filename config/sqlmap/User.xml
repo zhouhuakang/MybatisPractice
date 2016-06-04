@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace用来对sql进行分类管理 -->
+<mapper namespace="test">
+	<!-- 在映射文件中配置很多sql语句 -->
+	<!-- 需求：通过id查询用户表的记录 -->
+	<!-- 通过select执行数据库查询 id:标识映射文件中的sql 将sql语句封装到mappedStatement对象，所以将id称为statement的id -->
+	<!-- #{}表示一个占位符，对比使用jdbc时的 ？ -->
+	<!-- parameterType:输入参数类型 -->
+	<!-- #{id}中的id表示接收输入的参数的名字，如果输入参数是简单类型，#{}中的输入参数名可以任意 -->
+	<!--resultType:指定sql输出结果的所映射的java对象类型， -->
+	<select id="findUserById" parameterType="int" resultType="com.hank.pojo.User">
+		select * from user where id = #{id}
+	</select>
+
+</mapper>
