@@ -2,6 +2,7 @@ package com.hank.helloworld;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -36,5 +37,33 @@ public class MybaticHelloworld {
 		}
 		// 释放会话资源
 		session.close();
+	}
+	
+	//根据用户名进行模糊查询
+	@Test
+	public void findUserByNameTest(){
+		// mybatis配置文件
+				String resource = "SqlMapConfig.xml";
+				SqlSession session = null;
+				try {
+					InputStream inputStream = Resources.getResourceAsStream(resource);
+
+					// 创建会话工厂
+					SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
+							.build(inputStream);
+					// 通过工厂得到SqlSession
+					session = sqlSessionFactory.openSession();
+					// 通过SqlSession操作数据库
+					// 第一个参数：映射文件User.xml中statement的id,格式：namespace+statement的ID；
+					// 第二个参数：指定和映射文件中所指定的parameterType类型的参数
+					List<User> users = session.selectList("query.findUserByName", "小");
+					for(User user:users){
+						System.out.println(user.toString());	
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				// 释放会话资源
+				session.close();
 	}
 }

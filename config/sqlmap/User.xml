@@ -12,7 +12,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- #{id}中的id表示接收输入的参数的名字，如果输入参数是简单类型，#{}中的输入参数名可以任意 -->
 	<!--resultType:指定sql输出结果的所映射的java对象类型， -->
 	<select id="findUserById" parameterType="int" resultType="com.hank.pojo.User">
-		select * from user where id = #{id}
+		select
+		* from user where id = #{id}
+	</select>
+	<!-- 根据用户名字模糊查询用户,可能返回多条 -->
+	<!-- 但是注意resultType指的是单条记录所映射的java对象类型，故不要填什么List类型 -->
+	<!-- ${}:表示拼接sql串，隐患，会产生sql注入问题 -->
+	<!--  -->
+	<!-- 如果传入的类型是简单类型，则${}中只能使用value -->
+	<!--  -->
+	<select id="findUserByName" parameterType="String" resultType="com.hank.pojo.User">
+		select * from user where username like '%${value}%'
 	</select>
 
 </mapper>
