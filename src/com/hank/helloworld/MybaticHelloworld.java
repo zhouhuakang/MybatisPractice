@@ -92,4 +92,49 @@ public class MybaticHelloworld {
 		sqlSession.close();
 
 	}
+
+	// 根据id删除用户
+	@Test
+	public void deleteUserTest() throws IOException {
+		// Mybatis配置文件名
+		String resource = "SqlMapConfig.xml";
+		InputStream inputstream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
+				.build(inputstream);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+
+		sqlSession.delete("helloworld.deleteUser", 28);
+		// 提交事务
+		sqlSession.commit();
+
+		sqlSession.close();
+
+	}
+
+	// 更新用户记录
+	@Test
+	public void updateUserTest() throws IOException {
+		// Mybatis配置文件名
+		String resource = "SqlMapConfig.xml";
+		InputStream inputstream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
+				.build(inputstream);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+
+		User user = new User();
+		// 根据id更新记录，则必须设置id字段
+		user.setId(27);
+		user.setUsername("KK");
+		user.setBirthday(new Date());
+		user.setSex("1");
+		user.setAddress("金华");
+
+		sqlSession.insert("helloworld.updateUser", user);
+		// 提交事务
+		sqlSession.commit();
+
+		System.out.println(user.getId());
+		sqlSession.close();
+
+	}
 }

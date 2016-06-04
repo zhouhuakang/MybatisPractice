@@ -38,6 +38,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		user(id,username,birthday,sex,address)
 		value(#{id},#{username},#{birthday},#{sex},#{address})
 	</insert>
-
-
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="java.lang.Integer">
+		delete from user where
+		id=#{id}
+	</delete>
+	<!-- 根据id更新用户 -->
+	<!-- 从 -->
+	<update id="updateUser" parameterType="com.hank.pojo.User">
+		update user set
+		username=#{username},birthday=#{birthday},sex=#{sex},address
+		=#{address} where id = #{id}
+	</update>
 </mapper>
